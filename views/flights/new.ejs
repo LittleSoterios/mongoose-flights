@@ -1,0 +1,31 @@
+<%- include('../partials/header') %>
+
+<h2>Add a new flight</h2>
+<form action="/flights" method="POST">
+    <label>Airline:
+        <select name="airline">
+            <option value="Emirates">Emirates</option>
+            <option value="Etihad">Etihad</option>
+            <option value="British Airways">British Airways</option>
+            <option value="Virgin Atlantic">Virgin Atlantic</option>
+        </select>
+    </label><br>
+    <label>Airport:
+        <select name="airport">
+            <option value="LHR">LHR</option>
+            <option value="LGW">LGW</option>
+            <option value="MAN">MAN</option>
+            <option value="EDI">EDI</option>
+        </select>
+    </label><br>
+    <label>Flight Number
+        <input type="number" name="flightNo">
+    </label><br>
+    <label>Departure Time
+        <input type="datetime-local" name="departs" value=<%= new Date().toISOString().slice(0,-8) %> >
+    </label><br>
+    <button type="submit">Add flight</button>
+</form>
+<p><%= errorMsg %></p>
+
+<%- include('../partials/footer') %>
