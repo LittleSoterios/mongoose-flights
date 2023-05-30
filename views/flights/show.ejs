@@ -1,0 +1,38 @@
+<%- include('../partials/header') %>
+
+
+<h2>Flight No. <%= flight.flightNo %></h2>
+<table>
+    <thead>
+        <tr>
+            <th>Airline</th>
+            <th>Airport</th>
+            <th>Destination(s)</th>
+            <th>Arrival Times</th>
+            <th>flightNo</th>
+            <th>Depature Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        <tr>
+            <td><%= flight.airline %></td>
+            <td><%= flight.airport %></td>
+            <td><%if(flight.destinations){flight.destinations.forEach((d) =>{%><%=d.airport+'\n' %><%})}%></td>
+            <td><%if(flight.destinations){flight.destinations.forEach((d) =>{%><%=d.arrival.toLocaleString()+'\n'%><%})}%></td>
+            <td><%= flight.flightNo %></td>
+            <td><%= flight.departs.toLocaleString() %></td>
+            <% if(flight.destinations.length === 0){ %>
+            <td><a href="/flights/destinations/<%= flight._id %>/edit">Add Destinations</a></td>
+            <% } %>
+            
+        </tr>
+        
+    </tbody>
+</table>
+
+
+
+<p><%= errorMsg %></p>
+
+<%- include('../partials/footer') %>

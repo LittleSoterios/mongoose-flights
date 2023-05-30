@@ -1,0 +1,34 @@
+<%- include('../partials/header') %>
+
+<form id="new-form" action="/flights/<%=flight._id%>?_method=PUT" method="POST">
+    <label>Airline:
+        <select name="airline">
+            <option value="Emirates" <%= flight.airline == 'Emirates' ? 'selected' : '' %>>Emirates</option>
+            <option value="Etihad" <%= flight.airline == 'Etihad' ? 'selected' : '' %>>Etihad</option>
+            <option value="British Airways" <%= flight.airline == 'British Airways' ? 'selected' : '' %>>British Airways</option>
+            <option value="Virgin Atlantic" <%= flight.airline == 'Virgin Atlantic' ? 'selected' : '' %>>Virgin Atlantic</option>
+        </select>
+    </label><br>
+    <label>Airport bogga:
+        <select name="airport">
+            <option value="LHR" <%= flight.airport == 'LHR' ? 'selected' : '' %>>LHR</option>
+            <option value="LGW" <%= flight.airport == 'LGW' ? 'selected' : '' %>>LGW</option>
+            <option value="MAN" <%= flight.airport == 'MAN' ? 'selected' : '' %>>MAN</option>
+            <option value="EDI" <%= flight.airport == 'EDI' ? 'selected' : '' %>>EDI</option>
+        </select>
+    </label><br>
+    <label>Flight Number
+        <input type="number" name="flightNo" value="<%= flight.flightNo %>">
+    </label><br>
+    <label>Departure Time
+        <input type="datetime-local" name="departs" value=<%= flight.departs.toISOString().slice(0,-8) %> >
+    </label><br>
+    <button type="submit">Submit Changes</button>
+</form>
+<p><%= errorMsg %></p>
+
+
+
+<%- include('../partials/footer') %>
+
+

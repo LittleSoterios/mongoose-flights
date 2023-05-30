@@ -1,0 +1,53 @@
+<%- include('../../partials/header') %>
+
+<form id="new-form" action="/flights/destinations/<%=flight._id%>?_method=PUT" method="POST">
+    <label>Airline:
+        <select name="airline" disabled>
+            <option value="Emirates" <%= flight.airline == 'Emirates' ? 'selected' : '' %>>Emirates</option>
+            <option value="Etihad" <%= flight.airline == 'Etihad' ? 'selected' : '' %>>Etihad</option>
+            <option value="British Airways" <%= flight.airline == 'British Airways' ? 'selected' : '' %>>British Airways</option>
+            <option value="Virgin Atlantic" <%= flight.airline == 'Virgin Atlantic' ? 'selected' : '' %>>Virgin Atlantic</option>
+        </select>
+    </label><br>
+    <label>Airport Departure:
+        <select name="airport" disabled>
+            <option value="LHR" <%= flight.airport == 'LHR' ? 'selected' : '' %>>LHR</option>
+            <option value="LGW" <%= flight.airport == 'LGW' ? 'selected' : '' %>>LGW</option>
+            <option value="MAN" <%= flight.airport == 'MAN' ? 'selected' : '' %>>MAN</option>
+            <option value="EDI" <%= flight.airport == 'EDI' ? 'selected' : '' %>>EDI</option>
+        </select>
+    </label><br>
+    <label>Flight Number
+        <input type="number" disabled name="flightNo" value="<%= flight.flightNo %>">
+    </label><br>
+    <label>Departure Time
+        <input type="datetime-local" disabled name="departs" value=<%= flight.departs.toISOString().slice(0,-8) %> >
+    </label><br>
+    
+    <label>Destination Airports:
+        <select name="destAirport" multiple <%= flight.destinations.length ? 'disabled' : '' %>>
+            <option value="" <%= flight.destinations.airport == undefined ? 'selected' : '' %>>Select Airport(s)</option>
+            <option value="DXB" <%= flight.destinations.airport == 'DXB' ? 'selected' : '' %>>DXB</option>
+            <option value="AUH" <%= flight.airport == 'AUH' ? 'selected' : '' %>>AUH</option>
+            <option value="SYD" <%= flight.airport == 'SYD' ? 'selected' : '' %>>SYD</option>
+            <option value="MEL" <%= flight.airport == 'MEL' ? 'selected' : '' %>>MEL</option>
+        </select>
+    </label><br>
+    <button type="submit" <%= flight.destinations.length ? 'disabled' : '' %>>Confirm Airports</button>
+</form>
+<% if (flight.destinations.length){ %>
+<form id="new-form" action="/flights/destinations/<%=flight._id%>?_method=PUT" method="POST">
+    <% flight.destinations.forEach((d, idx) =>{ %>
+    <label>Arrival at <%= d.airport %>
+        <input type="datetime-local" name="arrival<%=idx%>" value=<%= new Date().toISOString().slice(0,-8) %> >
+    </label><br>
+    <% }) %>
+    <button type="submit">Add Destinations</button>
+
+</form>
+<% }%>
+<p><%= errorMsg %></p>
+
+
+
+<%- include('../../partials/footer') %>
